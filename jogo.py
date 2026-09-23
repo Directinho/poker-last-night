@@ -1,13 +1,14 @@
 import os
 import sys
-from data import datas
-
+import random
+from data import datas as bots
 nivel_bots = 0
 nivel_jogo = 0
 nivel_random = 0
 coins = 1000
 cheats = False
 jogando = False
+bot = bots
 
 
 if len(sys.argv) > 1:
@@ -17,8 +18,12 @@ else:
 
 def gerar_bots():
     print("Teste")
-    for bot in range(4, 4):
-        print(datas[bot])
+    bot1, bot2, bot3, bot4 = random.sample(bots["bots"], 4)
+
+    print(bot1["nome"], bot1["icone"])  
+    print(bot2["nome"], bot2["icone"])  
+    print(bot3["nome"], bot3["icone"])  
+    print(bot4["nome"], bot4["icone"])
 
 def ligar_cheats():
     cheats = True
