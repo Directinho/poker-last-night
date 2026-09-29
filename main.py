@@ -1,7 +1,6 @@
 import os
 import subprocess
 import sys
-
 def limpar_tela():
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -11,7 +10,7 @@ def opcao_invalida():
 
 def comecar_jogo(jogador):
     try:
-        subprocess.run([sys.executable, "jogo.py"])
+        subprocess.run([sys.executable, "jogo.py", jogador])
     except Exception as e:
         print(f"Erro ao abrir o jogo: {e}")
         input('\nDigite Enter para voltar ao menu: ')
@@ -33,7 +32,7 @@ def iniciar():
     
     if nome == "":
         nome = "Player"
-    
+
     comecar_jogo(nome)
 
 def exibir():

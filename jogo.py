@@ -2,6 +2,7 @@ import os
 import sys
 import random
 from data import datas as bots
+
 nivel_bots = 0
 nivel_jogo = 0
 nivel_random = 0
@@ -11,11 +12,12 @@ jogando = False
 bot = bots
 
 
+
 if len(sys.argv) > 1:
     jogador = sys.argv[1]
 else:
     jogador = "Player"
-
+    
 def gerar_bots():
     print("Teste")
     bot1, bot2, bot3, bot4 = random.sample(bots["bots"], 4)
@@ -94,7 +96,7 @@ def dificil():
     else:
         jogo()
 
-def jogo_configuracoes():
+def jogo_configuracoes(jogador):
     while True:
         limpar()
         print(f"Bem Vindo, {jogador}")
@@ -124,6 +126,7 @@ def jogo_configuracoes():
             print("Opção Invalida")
 
     
-def main():
-    jogo_configuracoes()
-main()
+def jogo():
+    jogo_configuracoes(jogador)
+jogo()
+
