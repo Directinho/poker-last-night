@@ -3,13 +3,14 @@ import sys
 import random
 from cartas import cartas 
 from data import datas as bots
-
+from bots import gerar_bots, reset_cartas, revelar_cartas
 nivel_bots = 0
 nivel_jogo = 0
 nivel_random = 0
 coins = 1000
 cheats = False
 jogando = False
+reset = False
 bot = bots
 player_c1 = "" #Primeira carta do jogador
 player_c2 = "" #Segunda carta do jogador
@@ -32,22 +33,39 @@ def jogador_cartas():
     player_c1, player_c2 = random.sample(baralho, 2)
 
     print(f"Cartas do jogador: {player_c1['nome']}, {player_c2['nome']}")
-def gerar_bots():
-    print("Teste")
-    bot1, bot2, bot3, bot4 = random.sample(bots["bots"], 4)
 
-    print(bot1["nome"], bot1["icone"])  
-    print(bot2["nome"], bot2["icone"])  
-    print(bot3["nome"], bot3["icone"])  
-    print(bot4["nome"], bot4["icone"])
-
-
+def jogador_passa():
+    pass
+def jogador_cobrar():
+    pass
+def jogador_aposta():
+    pass
+def erro_opcao():
+    pass
+def opcoes_jogo():
+    while True:
+        opcao_jogador = input(int("Insira a sua opção"))
+        print(f"Suas Cartas:\n{player_c1} e {player_c2}")
+        if opcao_jogador == 1: # Passar
+            jogador_passa()
+        elif opcao_jogador == 2:
+            jogador_cobrar()
+        elif opcao_jogador == 3:
+            jogador_aposta()
+        else:
+            erro_opcao()
+def jogo():
+    if reset == True:
+        gerar_bots()
+        reset_cartas() # Reseta as cartas dos bots
+        jogador_cartas()
 def ligar_cheats():
     cheats = True
     print("CHEATS ATIVADO\n/adicionar {Número de LNCoins}- Adiciona LNCoins\n/remove_bot_{Nome do Bot} - Remove um dos bots\n/adicionar_bot - Adiciona um Bot\n\nPara mostrar os cheats novamente digite 'ch'")
 def iniciar_jogo():
     gerar_bots()
-    jogador_cartas()
+    jogo()
+    
 
 
 def limpar():
@@ -142,7 +160,7 @@ def jogo_configuracoes(jogador):
             print("Opção Invalida")
 
     
-def jogo():
+def iniciar():
     jogo_configuracoes(jogador)
-jogo()
+iniciar()
 
