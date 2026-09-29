@@ -1,6 +1,7 @@
 import os
 import sys
 import random
+from cartas import cartas 
 from data import datas as bots
 
 nivel_bots = 0
@@ -10,14 +11,27 @@ coins = 1000
 cheats = False
 jogando = False
 bot = bots
-
-
+player_c1 = "" #Primeira carta do jogador
+player_c2 = "" #Segunda carta do jogador
 
 if len(sys.argv) > 1:
     jogador = sys.argv[1]
 else:
     jogador = "Player"
-    
+
+def jogador_cartas():
+    global player_c1, player_c2
+
+    baralho = (
+        cartas["espadas"] +
+        cartas["paus"] +
+        cartas["copas"] +
+        cartas["ouros"]
+    )
+
+    player_c1, player_c2 = random.sample(baralho, 2)
+
+    print(f"Cartas do jogador: {player_c1['nome']}, {player_c2['nome']}")
 def gerar_bots():
     print("Teste")
     bot1, bot2, bot3, bot4 = random.sample(bots["bots"], 4)
@@ -27,11 +41,13 @@ def gerar_bots():
     print(bot3["nome"], bot3["icone"])  
     print(bot4["nome"], bot4["icone"])
 
+
 def ligar_cheats():
     cheats = True
     print("CHEATS ATIVADO\n/adicionar {Número de LNCoins}- Adiciona LNCoins\n/remove_bot_{Nome do Bot} - Remove um dos bots\n/adicionar_bot - Adiciona um Bot\n\nPara mostrar os cheats novamente digite 'ch'")
-def jogo():
+def iniciar_jogo():
     gerar_bots()
+    jogador_cartas()
 
 
 def limpar():
@@ -62,7 +78,7 @@ def facil():
     if controle == "sair".lower():
         jogo_configuracoes()
     else:
-        jogo()
+        iniciar_jogo()
 
 def normal():
 
@@ -78,7 +94,7 @@ def normal():
     if controle == "sair".lower():
         jogo_configuracoes()
     else:
-        jogo()
+        iniciar_jogo()
 def dificil():
     nivel_bots = 4
     nivel_jogo = 4
@@ -94,7 +110,7 @@ def dificil():
     if controle == "sair".lower():
         jogo_configuracoes()
     else:
-        jogo()
+        iniciar_jogo()
 
 def jogo_configuracoes(jogador):
     while True:
