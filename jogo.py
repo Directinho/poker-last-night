@@ -22,9 +22,10 @@ else:
 
 def retorno():
     input("Clique em qualquer tecla: ")
-    iniciar()
+    jogo_configuracoes(jogador)
+
 def jogador_cartas():
-    global player_c1, player_c2
+    global player_c1, player_c2, player
 
     baralho = (
         cartas["espadas"] +
@@ -35,7 +36,6 @@ def jogador_cartas():
 
     player_c1, player_c2 = random.sample(baralho, 2)
 
-    print(f"Cartas do jogador: {player_c1['nome']}, {player_c2['nome']}")
 
 def checar_bots():
     gerar_bots()
@@ -55,7 +55,7 @@ def dev_mode():
             checar_bots()
             break
         elif dev_entrada == 3:
-            iniciar()
+            jogo_configuracoes()
         else:
             print("Erro no Console de Desenvolvedor")
             
@@ -67,29 +67,48 @@ def jogador_aposta():
     pass
 def erro_opcao():
     pass
-def opcoes_jogo():
-    while True:
-        opcao_jogador = input(int("Insira a sua opção"))
-        print(f"Suas Cartas:\n{player_c1} e {player_c2}")
-        if opcao_jogador == 1: # Passar
-            jogador_passa()
-        elif opcao_jogador == 2:
-            jogador_cobrar()
-        elif opcao_jogador == 3:
-            jogador_aposta()
-        else:
-            erro_opcao()
+def jogador_fugir():
+    pass
 def jogo():
+    reset = False
+    if reset == False:
+        while True:
+            opcoes_jogo()
+
+def menu():
+    print("---------")
+    print("MENU DE AJUDA\n1-Passa a Vez\n2- Cobra na partida\n3- Aposta\n4- Mostrar menu de ajuda\n5- Fugir da rodada ")
+    print("---------")
+def opcoes_jogo():
+    jogador_cartas()
+    
+    print("Suas Cartas\n", player_c1["icone"], " ", player_c1["nome"], "e", player_c2["icone"], " ", player_c2["nome"])
+    
+    opcao_jogador = int(input("Insira a sua opção:  "))
+    if opcao_jogador == 1: # Passar
+        jogador_passa()
+    elif opcao_jogador == 2:
+        jogador_cobrar()
+    elif opcao_jogador == 3:
+        jogador_aposta()
+    elif opcao_jogador == 4:
+        menu()
+    elif opcao_jogador == 5:
+        jogador_fugir()
+    else:
+        erro_opcao()
+def iniciar_jogo():
+    reset = True
     if reset == True:
         gerar_bots()
         reset_cartas() # Reseta as cartas dos bots
-        jogador_cartas()
+        opcoes_jogo()
+        jogo()
+
 def ligar_cheats():
     cheats = True
     print("CHEATS ATIVADO\n/adicionar {Número de LNCoins}- Adiciona LNCoins\n/remove_bot_{Nome do Bot} - Remove um dos bots\n/adicionar_bot - Adiciona um Bot\n\nPara mostrar os cheats novamente digite 'ch'")
-def iniciar_jogo():
-    gerar_bots()
-    jogo()
+
     
 
 
@@ -120,8 +139,9 @@ def facil():
 
     if controle == "sair".lower():
         jogo_configuracoes()
-    elif controle == "devv".lower():
+    elif controle == "iniciar".lower():
         iniciar_jogo()
+    elif controle == "devv".lower():
         dev_mode()
     else:
         iniciar_jogo()
@@ -188,9 +208,9 @@ def jogo_configuracoes(jogador):
             print("Opção Invalida")
 
     
-def iniciar():
+#def iniciar():
+ #   jogo_configuracoes(jogador)
+#iniciar()
+if __name__ == '__main__':
     jogo_configuracoes(jogador)
-iniciar()
-# if __name__ == '__main__':
-  #  jogo()
 
