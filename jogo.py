@@ -3,7 +3,7 @@ import sys
 import random
 from cartas import cartas 
 from data import datas as bots
-from bots import gerar_bots, reset_cartas, revelar_cartas
+from bots import gerar_bots, reset_cartas, revelar_cartas, revelar_bots
 nivel_bots = 0
 nivel_jogo = 0
 nivel_random = 0
@@ -20,6 +20,9 @@ if len(sys.argv) > 1:
 else:
     jogador = "Player"
 
+def retorno():
+    input("Clique em qualquer tecla: ")
+    iniciar()
 def jogador_cartas():
     global player_c1, player_c2
 
@@ -34,6 +37,28 @@ def jogador_cartas():
 
     print(f"Cartas do jogador: {player_c1['nome']}, {player_c2['nome']}")
 
+def checar_bots():
+    gerar_bots()
+    revelar_bots()
+    retorno()
+def dev_mode():
+    print("MODO DESENVOLVEDOR SELECIONADO\n1- Checar Cartas geradas\n2 -Checar Bots gerados\n3- Sair do Modo Desenvolvedor")
+
+    dev_entrada = int(input("Insira o comando de desenvolvedor:\n>"))
+    while True:
+        if dev_entrada == 1:
+            reset_cartas()
+            revelar_cartas()
+            retorno()
+            break
+        elif dev_entrada == 2:
+            checar_bots()
+            break
+        elif dev_entrada == 3:
+            iniciar()
+        else:
+            print("Erro no Console de Desenvolvedor")
+            
 def jogador_passa():
     pass
 def jogador_cobrar():
@@ -95,6 +120,9 @@ def facil():
 
     if controle == "sair".lower():
         jogo_configuracoes()
+    elif controle == "devv".lower():
+        iniciar_jogo()
+        dev_mode()
     else:
         iniciar_jogo()
 
@@ -163,4 +191,6 @@ def jogo_configuracoes(jogador):
 def iniciar():
     jogo_configuracoes(jogador)
 iniciar()
+# if __name__ == '__main__':
+  #  jogo()
 
