@@ -11,6 +11,7 @@ coins = 1000
 cheats = False
 jogando = False
 reset = False
+vez = 0
 bot = bots
 player_c1 = "" #Primeira carta do jogador
 player_c2 = "" #Segunda carta do jogador
@@ -66,7 +67,7 @@ def jogador_cobrar():
 def jogador_aposta():
     pass
 def erro_opcao():
-    pass
+    print("Opção não existente")
 def jogador_fugir():
     pass
 def jogo():
@@ -82,21 +83,22 @@ def menu():
 def opcoes_jogo():
     jogador_cartas()
     
-    print("Suas Cartas\n", player_c1["icone"], " ", player_c1["nome"], "e", player_c2["icone"], " ", player_c2["nome"])
-    
-    opcao_jogador = int(input("Insira a sua opção:  "))
-    if opcao_jogador == 1: # Passar
-        jogador_passa()
-    elif opcao_jogador == 2:
-        jogador_cobrar()
-    elif opcao_jogador == 3:
-        jogador_aposta()
-    elif opcao_jogador == 4:
-        menu()
-    elif opcao_jogador == 5:
-        jogador_fugir()
-    else:
-        erro_opcao()
+    while True:
+        print("Suas Cartas\n", player_c1["icone"], " ", player_c1["nome"], "e", player_c2["icone"], " ", player_c2["nome"])
+
+        opcao_jogador = int(input("Insira a sua opção:  "))
+        if opcao_jogador == 1: # Passar
+            jogador_passa()
+        elif opcao_jogador == 2:
+            jogador_cobrar()
+        elif opcao_jogador == 3:
+            jogador_aposta()
+        elif opcao_jogador == 4:
+            menu()
+        elif opcao_jogador == 5:
+            jogador_fugir()
+        else:
+            erro_opcao()
 def iniciar_jogo():
     reset = True
     if reset == True:
