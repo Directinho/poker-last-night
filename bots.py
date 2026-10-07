@@ -2,6 +2,23 @@
 import random
 from data import datas as bots
 from cartas import cartas 
+from jogo import nivel_bots, nivel_jogo, nivel_random
+from checker import *
+import sys
+import os
+import heapq
+
+
+# bot_escolha = ["Cobriu", "Apostou", "Fugiu"]
+#nivel_bots = 0
+#nivel_jogo = 0
+# nivel_random = 0
+
+
+def checar_nivel():
+    print(f"Nivel do Bot: {nivel_bots}")
+    print(f"Nivel do Jogo: {nivel_jogo}")
+    print(f"Nivel do Random: {nivel_random}")
 
 def gerar_bots():
     global bot1, bot2, bot3, bot4
@@ -39,3 +56,11 @@ def revelar_bots():
     print(bot2["nome"], bot2["icone"])  
     print(bot3["nome"], bot3["icone"])  
     print(bot4["nome"], bot4["icone"])
+def mesa():
+    print(bot1["icone"],bot1["nome"], "-")
+    print(bot2["icone"],bot2["nome"], "-")
+    print(bot3["icone"],bot3["nome"], "-")
+
+def bot_ia():
+    pass
+

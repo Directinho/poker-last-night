@@ -1,12 +1,16 @@
 import os
 import sys
 import random
+import subprocess
 from cartas import cartas 
 from data import datas as bots
-from bots import gerar_bots, reset_cartas, revelar_cartas, revelar_bots
+from checker import *
+from bots import *
+
 nivel_bots = 0
 nivel_jogo = 0
 nivel_random = 0
+
 coins = 1000
 cheats = False
 jogando = False
@@ -15,6 +19,7 @@ vez = 0
 bot = bots
 player_c1 = "" #Primeira carta do jogador
 player_c2 = "" #Segunda carta do jogador
+
 
 if len(sys.argv) > 1:
     jogador = sys.argv[1]
@@ -37,25 +42,32 @@ def jogador_cartas():
 
     player_c1, player_c2 = random.sample(baralho, 2)
 
+def retorno():
+    print("Clique enter para continuar: ")
+    return
 
 def checar_bots():
     gerar_bots()
     revelar_bots()
     retorno()
 def dev_mode():
-    print("MODO DESENVOLVEDOR SELECIONADO\n1- Checar Cartas geradas\n2 -Checar Bots gerados\n3- Sair do Modo Desenvolvedor")
-
+    print("MODO DESENVOLVEDOR SELECIONADO\n1- Checar Cartas geradas\n2 -Checar Bots gerados\n3- Visualizar Nivel\n4- Visualizar Cartas dos bots\n5- Sair do modo dev")
     dev_entrada = int(input("Insira o comando de desenvolvedor:\n>"))
     while True:
         if dev_entrada == 1:
             reset_cartas()
             revelar_cartas()
-            retorno()
             break
+            
         elif dev_entrada == 2:
             checar_bots()
             break
         elif dev_entrada == 3:
+            checar_nivel()
+            break
+        elif dev_entrada == 4:
+            break
+        elif dev_entrada == 5:
             jogo_configuracoes()
         else:
             print("Erro no Console de Desenvolvedor")
@@ -82,8 +94,9 @@ def menu():
     print("---------")
 def opcoes_jogo():
     jogador_cartas()
-    
+
     while True:
+        mesa()
         print("Suas Cartas\n", player_c1["icone"], " ", player_c1["nome"], "e", player_c2["icone"], " ", player_c2["nome"])
 
         opcao_jogador = int(input("Insira a sua opção:  "))
@@ -106,12 +119,17 @@ def iniciar_jogo():
         reset_cartas() # Reseta as cartas dos bots
         opcoes_jogo()
         jogo()
+def iniciar_jogo_dev():
+    reset = True
+    if reset == True:
+        gerar_bots()
+        reset_cartas()
+        dev_mode()
 
 def ligar_cheats():
     cheats = True
     print("CHEATS ATIVADO\n/adicionar {Número de LNCoins}- Adiciona LNCoins\n/remove_bot_{Nome do Bot} - Remove um dos bots\n/adicionar_bot - Adiciona um Bot\n\nPara mostrar os cheats novamente digite 'ch'")
 
-    
 
 
 def limpar():
@@ -138,13 +156,13 @@ def facil():
     print("-------------------------------------")
 
     controle = input("\nDeseja iniciar o jogo: ")
-
+    
     if controle == "sair".lower():
         jogo_configuracoes()
     elif controle == "iniciar".lower():
         iniciar_jogo()
     elif controle == "devv".lower():
-        dev_mode()
+        iniciar_jogo_dev()
     else:
         iniciar_jogo()
 
