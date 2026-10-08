@@ -2,10 +2,12 @@ import os
 import sys
 import random
 import subprocess
+from config import *
 from cartas import cartas 
 from data import datas as bots
 from checker import *
 from bots import *
+
 
 nivel_bots = 0
 nivel_jogo = 0
@@ -17,8 +19,8 @@ jogando = False
 reset = False
 vez = 0
 bot = bots
-player_c1 = "" #Primeira carta do jogador
-player_c2 = "" #Segunda carta do jogador
+player_c1 =  dict("") #Primeira carta do jogador
+player_c2 = dict("") #Segunda carta do jogador
 
 
 if len(sys.argv) > 1:
@@ -51,7 +53,7 @@ def checar_bots():
     revelar_bots()
     retorno()
 def dev_mode():
-    print("MODO DESENVOLVEDOR SELECIONADO\n1- Checar Cartas geradas\n2 -Checar Bots gerados\n3- Visualizar Nivel\n4- Visualizar Cartas dos bots\n5- Sair do modo dev")
+    print("MODO DESENVOLVEDOR SELECIONADO\n1- Checar Cartas geradas\n2 -Checar Bots gerados\n3- Visualizar Nivel\n4- Visualizar Cartas dos bots\n5- Verificar Jogador\n6- Sair do jogo")
     dev_entrada = int(input("Insira o comando de desenvolvedor:\n>"))
     while True:
         if dev_entrada == 1:
@@ -66,8 +68,10 @@ def dev_mode():
             checar_nivel()
             break
         elif dev_entrada == 4:
-            break
+            comparar_maos_jogador()
         elif dev_entrada == 5:
+            verificar_jogador(mao_jogador)
+        elif dev_entrada == 6:
             jogo_configuracoes()
         else:
             print("Erro no Console de Desenvolvedor")
@@ -97,8 +101,9 @@ def opcoes_jogo():
 
     while True:
         mesa()
+        print("------------------------------")
         print("Suas Cartas\n", player_c1["icone"], " ", player_c1["nome"], "e", player_c2["icone"], " ", player_c2["nome"])
-
+        print("------------------------------")
         opcao_jogador = int(input("Insira a sua opção:  "))
         if opcao_jogador == 1: # Passar
             jogador_passa()
@@ -117,6 +122,7 @@ def iniciar_jogo():
     if reset == True:
         gerar_bots()
         reset_cartas() # Reseta as cartas dos bots
+        limpar()
         opcoes_jogo()
         jogo()
 def iniciar_jogo_dev():
@@ -187,11 +193,11 @@ def dificil():
     nivel_random = 4
     coins = 500
     limpar()
-    print("-------------------------------------")
+    print("------------------------------------------")
     print("💀Modo Selecionado: Dificil💀")
     print(f"\nConfigurações do Multiplicador\n- Nível dos Bots: {nivel_bots}\n- Nível de Jogo: {nivel_jogo}\n-Nível de Random: {nivel_random}\n🪙LN Coins: {coins}\n")
     print("Digite qualquer coisa para começar o jogo\nDigite sair para voltar ao jogo")
-    print("-------------------------------------")
+    print("------------------------------------------")
     controle = input("\nDeseja iniciar o jogo: ")
     if controle == "sair".lower():
         jogo_configuracoes()

@@ -57,10 +57,17 @@ def revelar_bots():
     print(bot3["nome"], bot3["icone"])  
     print(bot4["nome"], bot4["icone"])
 def mesa():
+    print("-------------------------------------")
     print(bot1["icone"],bot1["nome"], "-")
     print(bot2["icone"],bot2["nome"], "-")
     print(bot3["icone"],bot3["nome"], "-")
 
-def bot_ia():
-    pass
+# BOT IA
+class ia:
+    def bot_ia(self, id, mao, nivel_bots, nivel_random):
+        self.id = id
+        self.mao =  mao
+        self.nivel = nivel_bots
+        self.random = nivel_random
+        
 
